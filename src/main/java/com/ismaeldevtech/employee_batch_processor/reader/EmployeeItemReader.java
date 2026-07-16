@@ -5,11 +5,14 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EmployeeItemReader {
+
+    @Bean
     public FlatFileItemReader<Employee> reader(){
         FlatFileItemReader<Employee> reader = new FlatFileItemReader<>();
         reader.setResource(new ClassPathResource("employees.csv"));
