@@ -2,8 +2,6 @@ package com.ismaeldevtech.employee_batch_processor.config;
 
 import com.ismaeldevtech.employee_batch_processor.model.Employee;
 import com.ismaeldevtech.employee_batch_processor.processor.EmployeeProcessor;
-import com.ismaeldevtech.employee_batch_processor.reader.EmployeeItemReader;
-import com.ismaeldevtech.employee_batch_processor.writer.EmployeeWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
