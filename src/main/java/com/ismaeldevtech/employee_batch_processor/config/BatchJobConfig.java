@@ -1,5 +1,6 @@
 package com.ismaeldevtech.employee_batch_processor.config;
 
+import com.ismaeldevtech.employee_batch_processor.listener.EmployeeSkipListener;
 import com.ismaeldevtech.employee_batch_processor.listener.JobCompletionListener;
 import com.ismaeldevtech.employee_batch_processor.model.Employee;
 import com.ismaeldevtech.employee_batch_processor.processor.EmployeeProcessor;
@@ -27,6 +28,9 @@ public class BatchJobConfig {
     @Autowired
     private JobCompletionListener jobCompletionListener;
 
+    @Autowired
+    private EmployeeSkipListener employeeSkipListener;
+
     @Bean
     public Step processEmployeesStep(FlatFileItemReader<Employee> reader,
                                      EmployeeProcessor processor,
@@ -36,6 +40,10 @@ public class BatchJobConfig {
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)
+                .faultTolerant()
+                .skipLimit(100)
+                .skip(Exception.class)
+                .listener(employeeSkipListener)
                 .build();
     }
 
