@@ -1,5 +1,6 @@
 package com.ismaeldevtech.employee_batch_processor.config;
 
+import com.ismaeldevtech.employee_batch_processor.listener.JobCompletionListener;
 import com.ismaeldevtech.employee_batch_processor.model.Employee;
 import com.ismaeldevtech.employee_batch_processor.processor.EmployeeProcessor;
 import org.springframework.batch.core.Job;
@@ -23,6 +24,9 @@ public class BatchJobConfig {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
+    @Autowired
+    private JobCompletionListener jobCompletionListener;
+
     @Bean
     public Step processEmployeesStep(FlatFileItemReader<Employee> reader,
                                      EmployeeProcessor processor,
@@ -39,6 +43,7 @@ public class BatchJobConfig {
     public Job processEmployeesJob(Step processEmployeesStep) {
         return new JobBuilder("processEmployeesJob", jobRepository)
                 .start(processEmployeesStep)
+                .listener(jobCompletionListener)
                 .build();
     }
 }
